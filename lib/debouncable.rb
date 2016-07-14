@@ -8,7 +8,7 @@ module SidekiqExtendedStrategies
     end
 
     def self.settings
-      @@settings = { "debounce_standard_period".freeze => 15 }
+      @@settings = { debounce_standard_period: 15 }
     end
 
     class Server < SidekiqExtendedStrategies::BaseServerMiddleware
@@ -22,7 +22,7 @@ module SidekiqExtendedStrategies
       end
 
       def debounce_standard_period
-        options['debounce_standard_period'.freeze] || Debouncable.settings['debounce_standard_period'.freeze]
+        options['debounce_standard_period'.freeze] || Debouncable.settings[:debounce_standard_period]
       end
 
       def reschedule_job(delay)

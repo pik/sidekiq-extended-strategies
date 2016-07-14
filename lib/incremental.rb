@@ -6,7 +6,7 @@ module SidekiqExtendedStrategies
     end
 
     def self.settings
-      @@settings = { "incremental_expire".freeze => 60*5, "incremental_log_duplicate".freeze => false }
+      @@settings = { incremental_expire: 60*5, incremental_log_duplicate: false }
     end
 
     class Client
@@ -37,7 +37,7 @@ module SidekiqExtendedStrategies
       end
 
       def log_duplicate?
-        worker_class.sidekiq_options['incremental_log_duplicate'.freeze]
+        worker_class.sidekiq_options['incremental_log_duplicate'.freeze] || Incremental.settings[:incremental_log_duplicate]
       end
 
       def unique_schedule
@@ -49,7 +49,7 @@ module SidekiqExtendedStrategies
       end
 
       def queue_lock_expire
-        worker_class.get_sidekiq_options['incremental_expire'.freeze] || Incremental.settings['incremental_expire'.freeze]
+        worker_class.get_sidekiq_options['incremental_expire'.freeze] || Incremental.settings[:incremental_expire]
       end
     end
   end

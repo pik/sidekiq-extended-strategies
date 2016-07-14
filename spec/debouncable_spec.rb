@@ -54,7 +54,7 @@ describe SidekiqExtendedStrategies::Debouncable::Server do
     end
 
     it "debounces upto 2x #debounce_standard_period" do
-      debounce_standard_period = SidekiqExtendedStrategies::Debouncable.settings['debounce_standard_period']
+      debounce_standard_period = SidekiqExtendedStrategies::Debouncable.settings[:debounce_standard_period]
       jid = DebouncableWorker.perform_async
       item = Sidekiq::Queue.new(QUEUE).find_job(jid).item
       # Very large debounce approaches log limit
@@ -71,7 +71,7 @@ describe SidekiqExtendedStrategies::Debouncable::Server do
     end
 
     it "debounces with a standard period logarithmically decreasing #debounce_standard_period" do
-      debounce_standard_period = SidekiqExtendedStrategies::Debouncable.settings['debounce_standard_period']
+      debounce_standard_period = SidekiqExtendedStrategies::Debouncable.settings[:debounce_standard_period]
       jid = DebouncableWorker.perform_async
       item = Sidekiq::Queue.new(QUEUE).find_job(jid).item
       # Debounce starts counting log-decreased debounce based on previous reschedules

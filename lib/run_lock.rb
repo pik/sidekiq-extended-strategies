@@ -8,7 +8,7 @@ module SidekiqExtendedStrategies
     end
 
     def self.settings
-      @@settings = { "run_lock_expire".freeze => 60}
+      @@settings = { run_lock_expire: 60}
     end
 
     class Server < SidekiqExtendedStrategies::BaseServerMiddleware
@@ -29,7 +29,7 @@ module SidekiqExtendedStrategies
       end
 
       def run_lock_expire
-        options['run_lock_expire'.freeze] || RunLock.settings['run_lock_expire'.freeze]
+        options['run_lock_expire'.freeze] || RunLock.settings[:run_lock_expire]
       end
 
       def options
